@@ -48,7 +48,14 @@ jobs:
           wget https://services.gradle.org/distributions/gradle-8.14-bin.zip
           unzip -q gradle-8.14-bin.zip -d "$RUNNER_TEMP"
 
-      - name: Prepare Minecraft resources
+      - name: Install Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: "latest"
+
+      - name: Install SDK components
+        run: |
+          sdkmanager "platforms;android-35" "build-tools;35.0.0" "ndk;28.2.13676358"      - name: Prepare Minecraft resources
         run: |
           mkdir -p .local/android
           python tools/android_prepare.py --version 26.3
